@@ -5,12 +5,21 @@ import java.util.Objects;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
     private static final int CAPACITY = 10;
+    private final Entry<K, V>[] storage;
+    private int size;
+
     @SuppressWarnings("unchecked")
-    private final Entry<K, V>[] storage = (Entry<K, V>[]) new Entry[CAPACITY];
-    private int size = 0;
+    public StorageImpl() {
+        this.storage = (Entry<K, V>[]) new Entry[CAPACITY];
+        this.size = 0;
+    }
+
 
     @Override
     public void put(K key, V value) {
+        if (size == CAPACITY) {
+            throw new RuntimeException("Storage is full");
+        }
         for (int i = 0; i < size; i++) {
             if (Objects.equals(storage[i].key, key)) {
                 storage[i].value = value;
