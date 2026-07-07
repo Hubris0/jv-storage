@@ -14,7 +14,6 @@ public class StorageImpl<K, V> implements Storage<K, V> {
         this.size = 0;
     }
 
-
     @Override
     public void put(K key, V value) {
         if (size == CAPACITY) {
